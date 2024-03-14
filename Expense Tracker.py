@@ -1,11 +1,15 @@
+from expense import Expense
+
+
 def main():
     print("Test")
 
     # Get user input
-    get_user_expense()
+    expense = get_user_expense()
+    print(expense)
 
     # Write expense to file.
-    save_user_expense()
+    save_user_expense(expense)
 
     # Read file and output expenses
     summarize_user_expense()
@@ -15,8 +19,6 @@ def get_user_expense():
     print("Expense input")
     expense_name = input("Enter Expense name: ")
     expense_amount = float(input("Enter Expense amount: "))
-
-    print(f"Your entered {expense_name}, {expense_amount}")
 
     expense_categories = ["Food", "Home", "Work", "Fun", "Misc"]
 
@@ -29,13 +31,17 @@ def get_user_expense():
         selected_index = int(input(f"Enter a category number {value_range}: ")) - 1
 
         if selected_index in range(len(expense_categories)):
-            
-        print(selected_index)
-        break
+            selected_category = expense_categories[selected_index]
+            new_expense = Expense(
+                name=expense_name, category=selected_category, amount=expense_amount
+            )
+            return new_expense
+        else:
+            print("Invalid Category")
 
 
-def save_user_expense():
-    print("Expense saved")
+def save_user_expense(expense):
+    print(f"Expense saved: {expense}")
 
 
 def summarize_user_expense():
